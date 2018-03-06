@@ -1,5 +1,4 @@
 var express = require('express'),
-    path = require('path'),
     fs = require('fs');
 var app = express();
 //server configuration
