@@ -9,7 +9,7 @@ var server = app.listen(8080, function(){
 app.set('view engine', 'ejs');
 
 //static files
-app.use(express.static('views'));
+app.use(express.static('public'));
 
 //first route
 app.get('/:file:extension', function(req, res){
@@ -22,6 +22,7 @@ app.get('/:file:extension', function(req, res){
         console.log('Now displaying the file ' + file + extension);
     }, (error) => {});
 });
+
 //second route
 app.get('/:file:extension/:command/:destination:destExtension', function(req, res){
     //utilities
