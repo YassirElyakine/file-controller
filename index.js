@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 //first route
-app.get('/:file:extension', function(req, res){
+var display = app.get('/:file:extension', function(req, res){
     //utilities
     var file = req.params.file,
         extension = req.params.extension;
@@ -24,7 +24,7 @@ app.get('/:file:extension', function(req, res){
 });
 
 //second route
-app.get('/:file:extension/:command/:destination:destExtension', function(req, res){
+var write = app.get('/:file:extension/:command/:destination:destExtension', function(req, res){
     //utilities
     var file = req.params.file,
         extension = req.params.extension,
@@ -38,5 +38,18 @@ app.get('/:file:extension/:command/:destination:destExtension', function(req, re
             console.log('File written to ' + destination + destExtension);
             res.render('write', {file: file + extension, dest: destination + destExtension});
         }, (error) => {});
+    }
+});
+
+//third route
+var DELETE = app.get('/:file:extension/:command', function(req, res){
+    //utilities
+    var file = req.params.file,
+        command = req.params.command,
+        extension = req.params.extension;
+    if(command === 'delete') {
+        fs.unlink('./' + file + extension, (error) => {});
+        console.log('The file ' + file + extension + ' has been deleted');
+        res.send(file + extension + ' has been removed from your computer');
     }
 });
